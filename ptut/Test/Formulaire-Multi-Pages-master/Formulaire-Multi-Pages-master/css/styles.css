@@ -1,0 +1,101 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;300;500;600;700;800;900&display=swap');
+
+main{
+    width: 60%;
+    border: 1px solid lightgrey;
+    padding: 20px;
+    border-radius: 5px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+input{
+    display: block;
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+}
+
+.page{
+    display: none;
+}
+
+header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.page-num{
+    border: 3px solid #ff4040;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    padding: 10px;
+    font-size: 2em;
+    color: #ff4040;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Roboto Slab';
+}
+
+
+.active{
+    color: white;
+    background-color: #ff4040;
+}
+
+
+
+
+/* NOTE*/
+.rate {
+    float: left;
+    height: 46px;
+    padding: 0 10px;
+}
+.rate:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+}
+.rate:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color:#ccc;
+}
+.rate:not(:checked) > label:before {
+    content: '⭗';
+}
+.rate > input:checked ~ label {
+    color: #f50000;    
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: #a32727;  
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+    color: #f55a5a;
+}
+
+/* Note fin */
+
+
+.ing {
+    display:grid;
+    grid-template-columns: 3fr 1fr 1fr;
+    gap: 2%;
+}

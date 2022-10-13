@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;700&display=swap');
+
+
+body{
+    font-family: 'Source code pro', Calibri, serif;
+    margin: 0px;
+    padding: 0px;
+    background-color: #fff8f8;
+}
+nav ul{
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+    font-family: "Lobster";
+    background-color: #fff8f8;
+    border-bottom: black solid 4px;
+}
+
+.menu{
+    background-color: white;
+    width: 100%;
+    height: 25%;
+    position: fixed;
+}
+
+nav li:hover{
+    background-color: #ffa7a7;
+    transition: background .7s;
+}
+
+nav li{
+    list-style-type: none;
+    float: left;
+}
+
+nav{
+    width: 100%;
+}
+
+nav a{
+    display: inline-block;
+    text-decoration: none;
+    padding: 20px 30px;
+    color: rgb(8, 8, 8);
+}
+
+.table{
+    display: table;
+    margin: 0 auto;
+}
+
+.menu-index{
+    background-color: #ff4040;
+}
+
+.menu-index a:hover{
+    transition: color .5s;
+    color: rgb(8, 8, 8);
+}
+
+.menu-index a{
+    color: white;
+}
+
+.titre {
+    width: 100%;
+    display: flex;
+	justify-content: center;
+    font-family: 'Dancing Script';
+    font-size: 1.3em;
+    color: #ff4040;
+    
+}

@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;300;500;600;700;800;900&display=swap');
+
+/* HEADER */
+
+header{
+    top: 0;
+    width: 100%;
+    position: fixed;
+}
+
+/* MENU-FIX */
+
+.menu-fix {
+    background: white;
+    padding-bottom: 1em;
+}
+
+/* LOGO + NOM */
+
+.barre {
+    margin: 0 auto;
+    width: 55vw;
+}
+
+.top {
+    margin-top: -0.5em;
+    display: flex;
+	align-items: center;
+	justify-content: center;
+
+}
+
+.logo {
+    width: 9%;
+}
+
+.title {
+    text-align:center;
+    font-family: 'Dancing Script';
+    color: #ff4040;
+    font-size: 350%;
+    margin-left: 0.3em;
+}
+    /* FIN LOGO + NOM */
+
+
+/* MENU */
+.even-colums {
+    display: flex;
+}
+
+.even-colums a {
+    margin-top: -1em;
+    text-decoration:none;
+    overflow: hidden;
+    color: black;
+}
+
+.even-colums > * {
+    flex-basis: 100%;
+    overflow: hidden;
+    font-family: "Lobster";
+    background-color: #fff8f8;
+    border-bottom: black solid 4px;
+}
+
+
+.col {
+    padding: 1em;
+    background: #fff8f8; 
+    text-align:center;
+}
+
+
+.col-index {
+    padding: 1em;
+    text-align:center;
+    background-color: #ff4040;
+    color: white;
+}
+
+.a-recherche {
+    color: white;
+}
+
+
+/*Hover*/
+
+.even-colums a:hover > .col{
+    background-color: #ffa7a7;
+    transition: background .7s;
+}
+
+.even-colums a:hover > .col-index{
+    background-color: #ffa7a7;
+    transition: background .7s, color .5s;
+    color: black;
+    
+}
+
+    /* FIN MENU */
+
+    /* FIN MENU-FIX */
+
+    /* FIN HEADER */
+
+
+
+/* BODY */
+body{
+    margin-top: 12em;
+}
+    /* FIN BODY */
+
+
+
+
+/* CARTE INTERACTIVE SVG */
+.carte {
+    width: 65%;
+    margin: 0 auto;
+}
+path {
+    stroke: #000000;
+    stroke-width: 1px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-opacity: .25;
+    fill: hsl(0, 96%, 72%) !important;
+}
+g:hover path {
+    fill: hsl(0, 80%, 73%) !important;
+}
+g path:hover {
+    fill: #f8cece !important;
+}
+
+footer {
+    text-align: center;
+    font-size: 12px;
+}
+
+.carte svg *{
+    fill: rgba(248, 92, 92, 0.938)  !important;
+}

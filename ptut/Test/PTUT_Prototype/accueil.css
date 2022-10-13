@@ -1,0 +1,293 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;700&display=swap');
+
+
+body {
+	background: white;
+}
+/* Menu déroulant*/
+.menu, .menu ul{
+padding:0;
+margin:0;
+list-style:none;
+text-align:center;
+}
+.menu li{
+display:inline-block;
+position:relative;
+border-radius:8px 8px 2px 2px;
+}
+.menu ul li{
+display:inherit;
+border-radius:0;
+}
+.menu ul li:hover{
+border-radius:0;
+}
+
+.menu ul{
+position:absolute;
+z-index: 1000;
+max-height:0;
+left: 0;
+right: 0;
+overflow:hidden;
+-moz-transition: .7s all .2s;
+-webkit-transition: .7s all .2s;
+transition: .7s all .2s;
+}
+.menu li:hover ul{
+max-height:15em;
+}
+
+
+.menu li{
+background-color: #FF7051;
+background-image:-webkit-linear-gradient(top, #FF7051 0%, #F0674A 100%);
+background-image:linear-gradient(to bottom, #FF7051 0%, #F0674A 100%);
+}
+
+.menu li li{
+background:#DC6046;
+}
+
+.menu li:hover, .menu li li:hover{
+background:#E93A15;
+}
+
+.menu a{
+text-decoration:none;
+display:block;
+padding:8px 32px;
+color:#fff;
+font-family:arial;
+}
+.menu ul a{
+padding:8px 0;
+}
+.menu li:hover li a{
+color:#fff;
+text-transform:inherit;
+}
+.menu li:hover a, .menu li li:hover a{
+color:#000;
+}
+
+.menu {
+	margin-bottom: 40px;
+}
+
+
+
+
+
+/* TOP*/
+.top {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	/*
+	display: flex;
+    margin: 0 auto;
+    margin-left: 133px;
+    width: 692px;
+    padding-left: 27px;*/
+}
+
+.logo {
+
+	border-radius: 10px;
+	display: inline-block;
+    margin-left: -139px;
+    margin-right: 40px;
+    padding: 4px 28px 0 30px;
+    top: 6px;
+    border: 2px solid black;
+	background-color: #F0674A;
+	color: white;
+	
+}
+
+.titre {
+	font-family: 'Dancing Script';
+	font-size: 2em;
+}
+
+
+
+
+
+/*
+.top .barre{
+	border-radius: 16px;
+    box-shadow: none;
+	border: 1px solid #dfe1e5;
+	height: 32px;
+	display: inline-block;
+	align-self: center;
+}
+
+.button {
+	font-style: bold;
+	font-size: 1.01em; 
+	
+}
+.top .barre .case{
+	display: flex;
+	border: 2px solid transparent;
+	box-shadow: 0 2px 5px 1px rgb(64 60 67 / 16%);
+
+    height: 39px;
+    width: 690px;
+    height: 44px;
+    margin: 0 auto;
+}
+
+
+
+*/
+
+/*BOX*/
+
+
+.box{
+	margin-left: auto;
+    margin-right: auto;
+	width: 75%;
+	display: flex;
+    justify-content: center;
+    background: #FF7051;
+    border-radius:2px; /* GAUGAU I NEED YOU*/
+
+
+}
+.box .petit{
+	border-radius: 8% 8% 0 0;
+	border: 2px solid black;
+	margin:1%;
+  	text-decoration:none;
+  	list-style:none;
+	text-align:center;
+	width: 27%;
+}
+
+
+
+.box .pti {
+	background: white;
+	border-radius: 0 0 15px 15px;
+	border: 2px solid black;
+	margin: -1% 1% 1% 1%;
+  	text-decoration: none;
+	text-align:center;
+	width: 27%;
+	color: black ;
+	font-size: 1.2em;
+	font-weight: bold;
+    font-family: Brandon Text,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif;
+}
+
+
+.tarte{
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: row;
+	background-color: #F4B117;
+	margin-top: 50px;
+}
+
+.histoire {
+	width: 50%;
+	background-color: #F4B117;
+	padding: 0px 50px 0px 50px;
+}
+
+.histoire p{
+	text-align: center;
+	font-size: 20px;
+	font-family: 'Roboto';
+}
+
+.tarte-img{
+	width: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 30px 0px 30px 0px;
+}
+
+.tarte-img img{
+	width: 60%;
+}
+
+#carte {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 100px;
+}
+
+#carte img{
+	width: 50%;
+}
+/*  
+Ca peut faire un truc stylé
+
+HTML 
+
+<figure>
+  <figcaption>Gateau au chocolat maison</figcaption>
+  <img src="dessert.jpg" alt>
+  <img src="dessert.jpg" alt>
+</figure>
+
+--------------
+CSS
+
+figure {
+  position: relative;
+  width: 25vw;
+  height: 25vw;
+  overflow: hidden;
+  background-image: url(gateau.jpg);
+  background-size: cover;
+}
+
+figcaption {
+  position: absolute;
+  top: 0;
+  padding-top: 12vw;
+  font-size: 3em;
+  font-style: Brush Script MT, Brush Script Std, cursive;
+  width: 100%;
+  height: 100%;
+  color: white;
+  text-align: center;
+}
+
+figure img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  transition: 2s ease-in-out;
+}
+figure img:first-of-type {
+  clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
+}
+
+figure img:last-of-type {
+  clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%);
+}
+figure:hover img:first-of-type {
+  transform: translateY(-45%);
+}
+
+figure:hover img:last-of-type {
+  transform: translateY(45%);
+}*/

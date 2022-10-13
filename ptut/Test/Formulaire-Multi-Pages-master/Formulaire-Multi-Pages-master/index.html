@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire</title>
+
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <main>
+        <header>
+        </header>
+        <form action="<?php $_PHP_SELF ?>" method="get">
+            <div class="page" id="page1">
+                <h1>Titre</h1>
+                <div>
+                    <label for="titre">Rentrez un titre :</label>
+                    <input type="text" id="titre" name="titre">
+                </div>
+                <button class="next" type="button">Suivant</button>
+            </div>
+
+
+            <!---  Page n°2 -->
+            <div class="page" id="page2">
+                <h1>Informations de la recette</h1>
+                <div class="all">
+                    <div>
+                        <select class="categorie">
+                            <option selected>Catégorie</option>
+                            <option value="1">Entrée</option>
+                            <option value="2">Plat principal</option>
+                            <option value="3">Dessert</option>
+                            <option value="4">Accompagnement</option>
+                            <option value="5">Boisson</option>
+                            <option value="6">Confiserie</option>
+                            <option value="7">Sauce</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        Nombre de portions: <input type = "number" name="portion"/> <br>
+                    </div>
+
+                    <div>
+                        <p>Temps de préparations</p>
+                        <label for="heure-prepa"> Heures :</label>
+                        <input type = "number" name="heure-prepa"/>
+                        <label for="minute-prepa"> Minutes :</label>
+                        <input type = "number" name="minute-prepa"/>
+                    </div>
+
+                    <div>
+                        <p>Temps de cuisson :</p>
+                        <label for="heure-cuiss"> Heures :</label>
+                        <input type = "number" name="heure-cuiss"/>
+                        <label for="minute-cuiss"> Minutes :</label>
+                        <input type = "number" name="minute-cuiss"/>
+                    </div>
+
+                    <div>
+                        <p>Temps de repos :</p>
+                        <label for="heure-rep"> Heures :</label>
+                        <input type = "number" name="heure-rep"/>
+                        <label for="minute-rep"> Minutes :</label>
+                        <input type = "number" name="minute-rep"/>
+                    </div>
+
+                    <div>
+                        <select class="type-cuisson">
+                            <option selected>Type de cuisson :</option>
+                            <option value="1">Four</option>
+                            <option value="2">Plaques</option>
+                            <option value="3">Sans cuisson</option>
+                            <option value="4">Autres</option>
+                        </select>
+                    </div>
+
+                    <div class="rate dif">
+                        <p>Difficulté :</p>
+                        <input type="radio" id="dif5" name="dif" value="5" />
+                        <label for="dif5" title="text">5</label>
+                        <input type="radio" id="dif4" name="dif" value="4" />
+                        <label for="dif4" title="text">4</label>
+                        <input type="radio" id="dif3" name="dif" value="3" />
+                        <label for="dif3" title="text">3</label>
+                        <input type="radio" id="dif2" name="dif" value="2" />
+                        <label for="dif2" title="text">2</label>
+                        <input type="radio" id="dif1" name="dif" value="1" />
+                        <label for="dif1" title="text">1</label>
+                    </div>
+
+                    <div class="rate cost">
+                        <p>Coût :</p>
+                        <input type="radio" id="cost5" name="cost" value="5" />
+                        <label for="cost5" title="text">5</label>
+                        <input type="radio" id="cost4" name="cost" value="4" />
+                        <label for="cost4" title="text">4</label>
+                        <input type="radio" id="cost3" name="cost" value="3" />
+                        <label for="cost3" title="text">3</label>
+                        <input type="radio" id="cost2" name="cost" value="2" />
+                        <label for="cost2" title="text">2</label>
+                        <input type="radio" id="cost1" name="cost" value="1" />
+                        <label for="cost1" title="text">1</label>
+                    </div>
+
+                    <!-- METTRE L'OPTION PHOTO -->
+
+                    
+                </div>
+                
+                <button class="prev" type="button">Précédent</button>
+                <button class="next" type="button">Suivant</button>
+            </div>
+
+
+
+
+            <div class="page" id="page3">
+                <h1>Ingédients</h1>
+
+                <div>
+                    <p>Listez les ingrédients, avec les quantiés</p>
+                    <div class="ing">
+                        <input type="text"name="ingredient" placeholder="Nom de l'ingrédient"/>
+                        <input type="text" name="quantite"placeholder="Quantité"/>
+                    </div>
+                    <button id="new-ing-btn" class="new" type="button" onclick="addIngredient()">new</button>
+
+                </div>
+                
+                <button class="prev" type="button">Précédent</button>
+                <button class="next" type="button">Suivant</button>
+            </div>
+
+
+
+
+            <div class="page" id="page4">
+                <h1>Identifiants</h1>
+                <div>
+                    <label for="email">E-mail :</label>
+                    <input type="email" id="email" name="email">
+                </div>
+                <div>
+                    <label for="pass">Mot de passe :</label>
+                    <input type="password" id="pass" name="pass">
+                </div>
+                <button class="prev" type="button">Précédent</button>
+                <button>Terminer</button>
+            </div>
+        </form>
+    </main>
+    
+    <script src="js/scripts.js"></script>
+</body>
+</html>
+

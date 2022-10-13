@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Accueil</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href=".\css\style.css">
+    </head>
+
+
+    <header>
+        <!-- MENU FIX (presque commun à toute les pages )-->
+        <div class="menu-fix">
+            <div class="barre">
+                <div class="top">
+                    <img class="logo" src=".\asset\logo.png" alt="" />
+                    <h1 class="title">Cuisine de chez vous</h1>
+                </div>
+                <div class="even-colums">
+                    <a href="index.html"><div class="col-index">Acceuil</div></a>
+                    <a href="recherche.html"><div class="col">Recherche</div></a>
+                    <a href="region.html"><div class="col">Régions</div></a>
+                    <a href="about.html"><div class="col">About us</div></a>
+                </div>
+            </div>
+            
+        </div>
+        <!-- FIN DU MENU FIX -->
+</header>
+
+    <body>
+
+        <div class="red-stick"></div>
+
+        
+        <!-- Selection entrée plat dessert boisson-->
+
+        <div class="selection">
+            
+            <div class="red-box">
+                <a href="recherche.html">
+                    <div><img class="img-selection" src="./asset/selection/Entrée.PNG" alt="" /></div>
+                    <div>ENTREE</div>
+                </a>
+            </div>
+            
+            <div class="white-box">
+                <a href="recherche.html">
+                    <div><img class="img-selection" src="./asset/selection/Plat.PNG" alt="" /></div>
+                    <div>PLAT</div>
+                </a>
+            </div>
+
+            <div class="red-box">
+                <a href="recherche.html">
+                    <div><img class="img-selection" src="./asset/selection/Dessert.PNG" alt="" /></div>
+                    <div>DESSERT</div>
+                </a>
+            </div>
+
+            <div class="white-box">
+                <a href="recherche.html">
+                    <div><img class="img-selection" src="./asset/selection/Boisson.PNG" alt="" /></div>
+                    <div>BOISSON</div>
+                </a>
+            </div>
+        </div>
+
+        <!--FIN Selection entrée plat dessert boisson-->
+
+        <div class="stick"></div>
+
+        <!-- Selection du mois  aléatoire ... (choix) -->
+
+        <div class="choix">
+            <div class="choix-box"></div>
+            <div class="choix-box"></div>
+            <div class="choix-box"></div>
+
+        </div>
+
+        <!-- FIN Selection du mois / aléatoire ... (choix)-->
+
+
+
+        <!-- Quote -->
+        <div class="big-quote">
+            <div class="quote">Cuisines de chez vous: "Parce que le meilleur plat n'est pas le plus cher, mais celui qu'on partage"</div>
+        </div>
+        <!-- FIN Quote -->
+
+
+
+        <!-- Slide show-->
+
+        
+        <div class="items">
+            <a href="recherche.html">
+                <div class="item active">
+                    <img src="./asset/idees pour img/maman.jpg">
+                </div>
+            </a>
+            
+            <a href="recherche.html">
+                <div class=" item next">
+                    <img src="./asset/idees pour img/papa.jpg">
+                </div>
+            </a>
+            
+            <a href="recherche.html">
+                <div class="item">
+                    <img src="./asset/idees pour img/sablier.jpg">
+                </div>
+            </a>
+            
+            <a href="recherche.html">
+                <div class="item">
+                    <img src="./asset/idees pour img/vegetarien.jpg">
+                </div>
+            </a>
+            
+            <a href="recherche.html">
+                <div class="item prev">
+                    <img src="./asset/idees pour img/barbecue.jfif">
+                </div>
+            </a>
+            
+            <div class="button-container">
+                <div class="button"><i class="fas fa-angle-left"></i></div>
+                <div class="button"><i class="fas fa-angle-right"></i></div>
+            </div>
+        </div>
+       
+
+        <!-- FIN Slide show-->
+
+    </body>
+
+    <!-- LISTE REGIONS EN BAS DE PAGES -->
+    <footer>
+        <div class="footer-title">Régions</div>
+        <div class="footer-region">
+            <ul class="footer-region-list">
+                <li>Alsace</li>
+                <li>Aquitaine</li>
+                <li>Auvergne</li>
+                <li>Basse-Normandie</li>
+            </ul>
+            <ul class="footer-region-list">
+               <li>Bourgogne</li>
+               <li>Bretagne</li>
+               <li>Centre</li>
+               <li>Champagne-Ardenne</li>
+            </ul>
+            <ul class="footer-region-list">
+                <li>Corse</li>
+                <li>Franche-Comté</li>
+                <li>Guadeloupe</li>
+                <li>Guyane</li>
+            </ul>
+            <ul class="footer-region-list">
+                <li>Haute-Normandie</li>
+                <li>Île-de-France</li>
+                <li>La Réunion</li>
+                <li>Languedoc-Roussillon</li>
+            </ul>
+            <ul class="footer-region-list">
+                <li>Limousin</li>
+                <li>Lorraine</li>
+                <li>Martinique</li>
+                <li>Mayotte</li>            
+            </ul>
+            <ul class="footer-region-list">
+                <li>Midi-Pyrénées</li>
+                <li>Nord-Pas-de-Calais</li>
+                <li>Pays de la Loire</li>
+                <li>Picardie</li>
+            </ul>
+            <ul class="footer-region-list">
+                <li>Poitou-Charentes</li>
+                <li>Provence-Alpes-Côte d'Azur</li>
+                <li>Rhône-Alpes</li>
+            </ul>
+        </div>
+    </footer>
+    <!-- FIN LISTE REGIONS EN BAS DE PAGES -->
+</html>
+
+<script>
+
+    const slider = document.querySelector(".items");
+            const slides = document.querySelectorAll(".item");
+            const button = document.querySelectorAll(".button");
+    
+            let current = 0;
+            let prev = 4;
+            let next = 1;
+    
+            for (let i = 0; i < button.length; i++) {
+                button[i].addEventListener("click", () => i == 0 ? gotoPrev() : gotoNext());
+            }
+    
+            const gotoPrev = () => current > 0 ? gotoNum(current - 1) : gotoNum(slides.length - 1);
+    
+            const gotoNext = () => current < 4 ? gotoNum(current + 1) : gotoNum(0);
+    
+            const gotoNum = number => {
+                current = number;
+                prev = current - 1;
+                next = current + 1;
+    
+                for (let i = 0; i < slides.length; i++) {
+                    slides[i].classList.remove("active");
+                    slides[i].classList.remove("prev");
+                    slides[i].classList.remove("next");
+                }
+    
+                if (next == 5) {
+                    next = 0;
+                }
+    
+                if (prev == -1) {
+                    prev = 4;
+                }
+    
+                slides[current].classList.add("active");
+                slides[prev].classList.add("prev");
+                slides[next].classList.add("next");
+            }
+    </script>
