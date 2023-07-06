@@ -1,11 +1,14 @@
 body{
     margin: 0;
 }
-canvas {
+
+#gameboard {
     position: fixed;
     top: 0;
     left: 0;
     display: none;
+}
+canvas {
     background-color: #F6F2E9;
     border-right: 1px solid black;
     border-bottom: 1px solid black;
