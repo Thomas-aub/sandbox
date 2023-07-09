@@ -1,11 +1,10 @@
 // Gameboard
 var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
 
-// Function to update canvas size
-function updateCanvasSize() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
+// Grid
+var grid = [];
+var cellSize;
 
 // Start game mode
 function start() {
@@ -14,158 +13,224 @@ function start() {
   button.style.display = "none";
   document.getElementById("gameboard").style.display = "flex";
 
-  // Call the function initially
   updateCanvasSize();
   init();
+  game();
 }
 
-// Initialize grid
+// Function to update canvas size
+function updateCanvasSize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+
+
 function init() {
-  // Get the canvas context
-  var ctx = canvas.getContext("2d");
+  createGrid(4, 4);
+  showGrid();
+}
 
-  // Calculate grid properties
-  var gridSize = Math.min(canvas.width, canvas.height) * 0.8; // Adjust the size of the grid
-  var cellSize = gridSize / 4;
-  var spacing = cellSize * 0.1; // Adjust the spacing percentage
-  var gridOffsetX = (canvas.width - gridSize) / 2;
-  var gridOffsetY = (canvas.height - gridSize) / 2;
-
-  // Calculate the total size including spacing
-  var totalSize = (cellSize + spacing) * 4 - spacing;
-
-  // Set the border properties for the grid
-  var gridBorderWidth = 5; // Adjust the width of the grid border
-  ctx.lineWidth = gridBorderWidth;
-  ctx.strokeStyle = "black";
-
-  // Draw the rectangle around the grid
-  var rectangleX = gridOffsetX - gridBorderWidth / 2 - spacing / 2;
-  var rectangleY = gridOffsetY - gridBorderWidth / 2 - spacing / 2;
-  var rectangleWidth = totalSize + gridBorderWidth + spacing;
-  var rectangleHeight = totalSize + gridBorderWidth + spacing;
-  ctx.strokeRect(rectangleX, rectangleY, rectangleWidth, rectangleHeight);
-
-  // Draw the grid cells with rounded borders and spacing
-  for (var row = 0; row < 4; row++) {
-    for (var col = 0; col < 4; col++) {
-      var cellX = gridOffsetX + col * (cellSize + spacing);
-      var cellY = gridOffsetY + row * (cellSize + spacing);
-      drawRoundedRect(ctx, cellX, cellY, cellSize, cellSize, 10); // Adjust the corner radius
+// grid register the element on each tile
+function createGrid(column, line){
+  for (let i = 0; i < column; ++i){
+    grid[i] = [];
+    for (let j = 0; j < line; ++j){
+      grid[i][j] = 0 
     }
   }
+}
 
-  // Call the function to add elements to specific cells
-  addElementsToCells(ctx, 1, 1, 2, "red", true); // Remove border from cell (1, 1)
-  addElementsToCells(ctx, 2, 2, 4, "blue", false); // Preserve border for cell (2, 2)
+function showGrid() {
+  cellSize = Math.min(canvas.width, canvas.height) / grid.length;
 
-  // Add event listener for keydown event
+  // Clear the canvas
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Loop through the grid and draw each cell
+  for (let i = 0; i < grid.length; i++) {
+    for (let j = 0; j < grid[i].length; j++) {
+
+      // Calculate the position of the cell on the canvas
+      var x = j * cellSize;
+      var y = i * cellSize;
+      
+      // Draw the cells
+      ctx.fillStyle = "red";
+      ctx.fillRect( (x+ 3*j), (y+3*i), cellSize, cellSize);      
+    }
+  }
+}
+
+function addCell(x, y, value) {
+  grid[x][y] = value ;
+  drawCell(x, y, value) ;
+}
+
+function drawCell(x, y, value){
+
+  ctx.fillStyle = "green";
+
+  // +3 is to deals with borders
+  ctx.fillRect( (x*(3+cellSize)), (y*(3+cellSize)), cellSize, cellSize);
+
+  // Set the color and font for the tile
+  ctx.fillStyle = "#000";
+  ctx.font = "bold " + (cellSize / 2) + "px Arial";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+
+  // coords * cellSize (+3 to deal borders) + cellSize /2 (to center)
+  ctx.fillText(value, (x*(3+cellSize)+ cellSize/2), (y*(3+cellSize)+ cellSize/2));
+}
+
+
+function removeCell(x,y){
+  grid[x][y] = 0;
+  eraseCell(x,y);
+}
+
+function eraseCell(x,y){
+  ctx.fillStyle = "red";
+  // +3 is to deals with borders
+  ctx.fillRect( (x*(3+cellSize)), (y*(3+cellSize)), cellSize, cellSize);
+}
+
+
+function game() {
+  let x = getRandomInt(0, 4);
+  let y = getRandomInt(0, 4);
+  addCell(x, y, 2);
+
+  x = getRandomInt(0, 4);
+  y = getRandomInt(0, 4);
+  addCell(x, y, 2);
+  
   window.addEventListener("keydown", handleKeyDown);
+
 }
 
-// Draw a rounded rectangle without border
-function drawRoundedRect(ctx, x, y, width, height, cornerRadius) {
-  ctx.beginPath();
-  ctx.moveTo(x + cornerRadius, y);
-  ctx.arcTo(x + width, y, x + width, y + height, cornerRadius);
-  ctx.arcTo(x + width, y + height, x, y + height, cornerRadius);
-  ctx.arcTo(x, y + height, x, y, cornerRadius);
-  ctx.arcTo(x, y, x + width, y, cornerRadius);
-  ctx.closePath();
-  ctx.stroke();
+// The maximum is exclusive and the minimum is inclusive
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min) + min); 
 }
+
 
 // Handle keydown event
 function handleKeyDown(event) {
   if (event.key === "ArrowLeft") {
     moveCellsLeft();
+  } else if (event.key === "ArrowRight"){
+    moveCellsRight();
+  } else if (event.key === "ArrowUp"){
+    moveCellsUp();
+  } else if (event.key === "ArrowDown"){
+    moveCellsDown();
   }
 }
 
-// Function to move cells to the left
 function moveCellsLeft() {
-  for (var row = 0; row < 4; row++) {
-    for (var col = 1; col < 4; col++) {
-      var currentCell = getCellValue(col, row);
-      if (currentCell !== null) {
-        var targetCol = col;
-        while (targetCol > 0) {
-          var leftCell = getCellValue(targetCol - 1, row);
-          if (leftCell === null) {
-            // Move current cell content to the left cell
-            setCellValue(targetCol - 1, row, currentCell);
-            clearCell(targetCol, row);
-            targetCol--;
-          } else if (leftCell === currentCell) {
-            // Merge cells
-            mergeCells(targetCol - 1, row, targetCol, row);
-            clearCell(col, row);
-            break;
-          } else {
-            // Stop moving if the left cell is not empty or different value
-            break;
-          }
+
+  for (let i = 1; i < grid.length; i++) {
+    for (let j = 0; j < grid[i].length; j++) {
+
+      var tmpX = i;
+      var tmpY = j;
+      while (tmpX > 0 && grid[tmpX][tmpY]){
+        if (grid[tmpX][tmpY] == grid[tmpX-1][tmpY] ) {
+          console.log("fusion !");
+          break;
+
+        } else {
+          addCell(tmpX-1, tmpY, grid[tmpX][tmpY]);
+          removeCell(tmpX,tmpY);
+          tmpX = tmpX-1;
         }
+        
+        
       }
+
+      
     }
   }
 }
 
-// Function to get the value of a cell at specific column and row
-function getCellValue(col, row) {
-  // Implement your own logic to retrieve the value of a cell
-  // based on its column and row position
-  // Replace with your own code
-  return null;
-}
+function moveCellsRight() {
 
-// Function to set the value of a cell at specific column and row
-function setCellValue(col, row, value) {
-  // Implement your own logic to set the value of a cell
-  // based on its column and row position
-  // Replace with your own code
-}
+  for (let i = grid.length-2 ; i >= 0; i-- ){
+    for ( let j = grid.length-1; j >= 0; j-- ) {
 
-// Function to clear the content of a cell at specific column and row
-function clearCell(col, row) {
-  // Implement your own logic to clear the content of a cell
-  // based on its column and row position
-  // Replace with your own code
-}
+      var tmpX = i;
+      var tmpY = j;
+      while (tmpX < 3 && grid[tmpX][tmpY] !== 0){
 
-// Function to merge two cells at specific column and row positions
-function mergeCells(targetCol, targetRow, sourceCol, sourceRow) {
-  // Implement your own logic to merge two cells
-  // based on their column and row positions
-  // Replace with your own code
-}
+        if (grid[tmpX+1][tmpY] == grid[tmpX][tmpY] ) {
+          console.log("fusion !");
+          break;
 
-function addElementsToCells(ctx, col, row, number, cellColor, removeBorder) {
-  // Calculate grid properties
-  var gridSize = Math.min(canvas.width, canvas.height) * 0.8; // Adjust the size of the grid
-  var cellSize = gridSize / 4;
-  var spacing = cellSize * 0.1; // Adjust the spacing percentage
-  var gridOffsetX = (canvas.width - gridSize) / 2;
-  var gridOffsetY = (canvas.height - gridSize) / 2;
+        } else {
+          addCell(tmpX+1, tmpY, grid[tmpX][tmpY]);
+          removeCell(tmpX,tmpY);
+          tmpX = tmpX+1;
+        }
+        
+        
+      }
 
-  // Calculate the position and dimensions of the cell
-  var cellX = gridOffsetX + col * (cellSize + spacing);
-  var cellY = gridOffsetY + row * (cellSize + spacing);
-  var numberX = cellX + cellSize / 2;
-  var numberY = cellY + cellSize / 2;
-  var numberSize = cellSize * 0.8; // Adjust the size of the number
-
-  // Remove cell border if specified
-  if (removeBorder) {
-    ctx.clearRect(cellX, cellY, cellSize, cellSize);
+      
+    }
   }
-
-  ctx.fillStyle = cellColor;
-  ctx.fillRect(cellX, cellY, cellSize, cellSize);
-
-  ctx.fillStyle = "black";
-  ctx.font = numberSize + "px Arial"; // Set font size as a percentage of cellSize
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-  ctx.fillText(number.toString(), numberX, numberY);
 }
+
+function moveCellsUp() {
+
+  for (let i = 0; i < grid.length; i++) {
+    for (let j = 1; j < grid[i].length; j++) {
+
+      var tmpX = i;
+      var tmpY = j;
+      while (tmpY > 0 && grid[tmpX][tmpY] !== 0 ){
+
+        if (grid[tmpX][tmpY] == grid[tmpX][tmpY-1] ) {
+          console.log("fusion !");
+          break;
+
+        } else {
+          addCell(tmpX, tmpY-1, grid[tmpX][tmpY]);
+          removeCell(tmpX,tmpY);
+          tmpY = tmpY-1;
+        }
+        
+      }
+      
+      
+    }
+  }
+}
+
+function moveCellsDown() {
+
+  for (let i = grid.length-1 ; i >= 0; i-- ){
+    for ( let j = grid.length-1; j >= 0; j-- ) {
+  
+      var tmpX = i;
+      var tmpY = j;
+      while (tmpY < 3 && grid[tmpX][tmpY] !== 0){
+
+        if (grid[tmpX][tmpY] == grid[tmpX][tmpY+1] ) {
+          console.log("fusion !");
+          break;
+        } else {
+          addCell(tmpX, tmpY+1, grid[tmpX][tmpY]);
+          removeCell(tmpX,tmpY);
+          tmpY = tmpY+1;
+        }
+        
+      } 
+    }
+  }
+}
+
+
+
