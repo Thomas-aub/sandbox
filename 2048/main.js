@@ -1,6 +1,8 @@
 // Gameboard
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
+var column = 4;
+var line = 4;
 
 // Grid
 var grid = [];
@@ -26,7 +28,7 @@ function updateCanvasSize() {
 
 
 function init() {
-  createGrid(4, 4);
+  createGrid(column, line);
   showGrid();
 }
 
@@ -56,7 +58,7 @@ function showGrid() {
       
       // Draw the cells
       ctx.fillStyle = "red";
-      ctx.fillRect( (x+ 3*j), (y+3*i), cellSize, cellSize);      
+      ctx.fillRect( (x+ 7*j), (y+7*i), cellSize, cellSize);      
     }
   }
 }
@@ -68,10 +70,17 @@ function addCell(x, y, value) {
 
 function drawCell(x, y, value){
 
+  ctx.shadowOffsetX = 5;
+  ctx.shadowOffsetY = 5;
+
+  ctx.shadowColor = "orange";
+
   ctx.fillStyle = "green";
 
-  // +3 is to deals with borders
-  ctx.fillRect( (x*(3+cellSize)), (y*(3+cellSize)), cellSize, cellSize);
+  // +7 is to deals with borders
+  ctx.fillRect( (x*(7+cellSize)), (y*(7+cellSize)), cellSize, cellSize );
+  ctx.shadowOffsetX = 0;
+  ctx.shadowOffsetY = 0;
 
   // Set the color and font for the tile
   ctx.fillStyle = "#000";
@@ -79,8 +88,8 @@ function drawCell(x, y, value){
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
 
-  // coords * cellSize (+3 to deal borders) + cellSize /2 (to center)
-  ctx.fillText(value, (x*(3+cellSize)+ cellSize/2), (y*(3+cellSize)+ cellSize/2));
+  // coords * cellSize (+7 to deal borders) + cellSize /2 (to center)
+  ctx.fillText(value, (x*(7+cellSize)+ cellSize/2), (y*(7+cellSize)+ cellSize/2));
 }
 
 
@@ -91,8 +100,8 @@ function removeCell(x,y){
 
 function eraseCell(x,y){
   ctx.fillStyle = "red";
-  // +3 is to deals with borders
-  ctx.fillRect( (x*(3+cellSize)), (y*(3+cellSize)), cellSize, cellSize);
+  // +7 is to deals with borders
+  ctx.fillRect( (x*(7+cellSize)), (y*(7+cellSize)), cellSize, cellSize);
 }
 
 
@@ -100,12 +109,8 @@ function game() {
   let x = getRandomInt(0, 4);
   let y = getRandomInt(0, 4);
   addCell(x, y, 2);
-
-  x = getRandomInt(0, 4);
-  y = getRandomInt(0, 4);
-  addCell(x, y, 2);
   
-  window.addEventListener("keydown", handleKeyDown);
+  play();
 
 }
 
@@ -116,19 +121,50 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min) + min); 
 }
 
+function play () {
+
+  window.addEventListener("keydown", handleKeyDown);
+
+}
+
 
 // Handle keydown event
 function handleKeyDown(event) {
   if (event.key === "ArrowLeft") {
     moveCellsLeft();
+    addRandomCell();
   } else if (event.key === "ArrowRight"){
     moveCellsRight();
+    addRandomCell();
   } else if (event.key === "ArrowUp"){
     moveCellsUp();
+    addRandomCell();
   } else if (event.key === "ArrowDown"){
     moveCellsDown();
+    addRandomCell();
   }
 }
+
+function addRandomCell(){
+  const nonZeroCoordinates = [];
+
+  for (let i = 0; i < column; ++i) {
+    for (let j = 0; j < line; ++j) {
+      if (grid[i][j] == 0) {
+        nonZeroCoordinates.push({ x: i, y: j });
+      }
+    }
+  }
+
+  let {x,y} = nonZeroCoordinates[getRandomInt(0, nonZeroCoordinates.length)];
+
+  console.log(x + " " + y);
+  addCell(x,y,Math.random() < 0.8 ? 2 : 4);
+  
+}
+
+
+
 
 function moveCellsLeft() {
 
@@ -139,9 +175,11 @@ function moveCellsLeft() {
       var tmpY = j;
       while (tmpX > 0 && grid[tmpX][tmpY]){
         if (grid[tmpX][tmpY] == grid[tmpX-1][tmpY] ) {
-          console.log("fusion !");
+          fusion(tmpX, tmpY, tmpX-1, tmpY);
           break;
 
+        }  else if (grid[tmpX-1][tmpY] !== 0) {
+          break;
         } else {
           addCell(tmpX-1, tmpY, grid[tmpX][tmpY]);
           removeCell(tmpX,tmpY);
@@ -163,12 +201,14 @@ function moveCellsRight() {
 
       var tmpX = i;
       var tmpY = j;
-      while (tmpX < 3 && grid[tmpX][tmpY] !== 0){
+      while (tmpX < 7 && grid[tmpX][tmpY] !== 0){
 
         if (grid[tmpX+1][tmpY] == grid[tmpX][tmpY] ) {
-          console.log("fusion !");
+          fusion(tmpX, tmpY, tmpX+1, tmpY);
           break;
 
+        } else if (grid[tmpX+1][tmpY] !== 0) {
+          break;
         } else {
           addCell(tmpX+1, tmpY, grid[tmpX][tmpY]);
           removeCell(tmpX,tmpY);
@@ -193,10 +233,12 @@ function moveCellsUp() {
       while (tmpY > 0 && grid[tmpX][tmpY] !== 0 ){
 
         if (grid[tmpX][tmpY] == grid[tmpX][tmpY-1] ) {
-          console.log("fusion !");
+          fusion(tmpX, tmpY, tmpX, tmpY-1)
           break;
 
-        } else {
+        } else if (grid[tmpX][tmpY-1] !== 0) {
+          break;
+        }else {
           addCell(tmpX, tmpY-1, grid[tmpX][tmpY]);
           removeCell(tmpX,tmpY);
           tmpY = tmpY-1;
@@ -216,12 +258,14 @@ function moveCellsDown() {
   
       var tmpX = i;
       var tmpY = j;
-      while (tmpY < 3 && grid[tmpX][tmpY] !== 0){
+      while (tmpY < 7 && grid[tmpX][tmpY] !== 0){
 
         if (grid[tmpX][tmpY] == grid[tmpX][tmpY+1] ) {
-          console.log("fusion !");
+          fusion(tmpX, tmpY, tmpX, tmpY+1)
           break;
-        } else {
+        }else if (grid[tmpX][tmpY+1] !== 0) {
+          break;
+        }else {
           addCell(tmpX, tmpY+1, grid[tmpX][tmpY]);
           removeCell(tmpX,tmpY);
           tmpY = tmpY+1;
@@ -234,3 +278,8 @@ function moveCellsDown() {
 
 
 
+function fusion (xStart, yStart, xEnd, yEnd) {
+  removeCell(xEnd,yEnd);
+  addCell(xEnd, yEnd, grid[xStart][yStart]*2);
+  removeCell(xStart,yStart);
+}
